@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>TargetPing - Smart Customer Outreach for Sales Teams</title>
-<meta name="description" content="TargetPing: Smart customer list manager with WhatsApp Business API integration for shipping and logistics sales teams."/>
+<title>TargetPing - Application Workflow Journey</title>
+<meta name="description" content="Explore TargetPing's step-by-step application workflow, from customer filtering and Excel upload to WhatsApp broadcasting, callback actions, and analytics."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
@@ -32,367 +32,463 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: var(--font-main); background: var(--grey-100); color: var(--grey-600); line-height: 1.6; overflow-x: hidden; }
-.container { max-width: 1140px; margin: 5px auto; padding: 0 5px; }
+body { font-family: var(--font-main); background: var(--grey-100); color: var(--grey-600); line-height: 1.6; overflow-x: hidden; padding: 30px 0 80px; }
+.container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 .text-green { color: var(--green); }
 .text-gold { color: var(--gold); }
-#print-btn { position: fixed; bottom: 32px; right: 32px; z-index: 999; background: var(--green); color: #fff; border: none; padding: 14px 26px; border-radius: 50px; font-family: var(--font-main); font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 24px rgba(18, 140, 126, 0.25); transition: transform 0.2s, background-color 0.2s; letter-spacing: 0.5px; }
-#print-btn:hover { transform: translateY(-2px); background: #0e6f64; }
-#print-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
-header { position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--grey-200); padding: 4px 0; }
-header .container { display: flex; align-items: center; justify-content: space-between; }
-.header-logo { display: flex; align-items: center; gap: 14px; }
-.header-logo img { height: 65px; }
-.header-divider { width: 1px; height: 28px; background: var(--grey-300); }
-.header-tagline { font-size: 12px; font-weight: 600; color: var(--navy); letter-spacing: 1.5px; text-transform: uppercase; }
-.hero { position: relative; padding: 20px 0; background: linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 100%); border-bottom: 1px solid var(--grey-200); }
-.hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.hero-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--navy-light); border: 1px solid var(--grey-300); padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 700; color: var(--navy); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
-.hero-pill .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; }
-.hero h1 { font-size: clamp(34px, 4vw, 52px); font-weight: 900; line-height: 1.15; letter-spacing: -1px; margin-bottom: 20px; color: var(--navy); }
-.hero h1 .line2 { color: var(--green); display: block; }
-.hero-sub { font-size: 17px; color: var(--grey-600); line-height: 1.7; margin-bottom: 36px; max-width: 520px; }
-.hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
-.btn-primary { background: var(--navy); color: var(--white); padding: 15px 32px; border-radius: 50px; font-weight: 700; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 8px 24px rgba(11, 29, 58, 0.15); transition: all 0.2s; border: none; cursor: pointer; }
-.btn-primary:hover { background: var(--navy-mid); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(11, 29, 58, 0.25); }
-.btn-outline { background: var(--white); color: var(--navy); padding: 14px 30px; border-radius: 50px; font-weight: 600; font-size: 15px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--grey-300); transition: all 0.2s; }
-.btn-outline:hover { background: var(--navy-light); border-color: var(--navy); }
-.hero-visual { position: relative; }
-.hero-mockup { background: var(--white); border: 1px solid var(--grey-300); border-radius: var(--radius-xl); padding: 28px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
-.mockup-topbar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--grey-200); }
-.mockup-dots { display: flex; gap: 6px; }
-.mockup-dots span { width: 10px; height: 10px; border-radius: 50%; }
-.mockup-dots span:nth-child(1) { background: #FF5F57; }
-.mockup-dots span:nth-child(2) { background: #FEBC2E; }
-.mockup-dots span:nth-child(3) { background: #28C840; }
-.mockup-title { font-size: 12px; color: var(--grey-400); font-weight: 600; letter-spacing: 1px; }
-.mockup-row { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 10px; margin-bottom: 8px; background: var(--grey-100); border: 1px solid var(--grey-200); transition: all 0.2s; }
-.mockup-row.active { background: rgba(37, 211, 102, 0.08); border-color: rgba(37, 211, 102, 0.3); }
-.mockup-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-.mockup-icon.green { background: rgba(37, 211, 102, 0.15); }
-.mockup-icon.blue { background: rgba(37, 99, 211, 0.1); }
-.mockup-icon.gold { background: rgba(245, 200, 66, 0.15); }
-.mockup-info { flex: 1; min-width: 0; }
-.mockup-name { font-size: 13px; font-weight: 700; color: var(--navy); }
-.mockup-meta { font-size: 11px; color: var(--grey-400); margin-top: 2px; }
-.mockup-tag { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; text-transform: uppercase; }
-.tag-green { background: rgba(37, 211, 102, 0.15); color: var(--green); }
-.tag-blue { background: rgba(37, 99, 211, 0.1); color: #2563EB; }
-.tag-gold { background: rgba(245, 200, 66, 0.15); color: var(--gold); }
-.mockup-broadcast { margin-top: 18px; padding: 16px; background: linear-gradient(135deg, rgba(37, 211, 102, 0.08), rgba(37, 99, 211, 0.04)); border: 1px solid rgba(37, 211, 102, 0.2); border-radius: 12px; display: flex; align-items: center; gap: 12px; }
-.broadcast-icon { font-size: 28px; }
-.broadcast-text { flex: 1; }
-.broadcast-text strong { font-size: 13px; color: var(--green); display: block; }
-.broadcast-text span { font-size: 11px; color: var(--grey-400); }
-.broadcast-btn { background: var(--green-light); color: var(--navy); font-size: 11px; font-weight: 700; padding: 7px 14px; border-radius: 20px; white-space: nowrap; }
-.stat-card { position: absolute; background: rgba(255, 255, 255, 0.95); border: 1px solid var(--grey-300); border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow); }
-.stat-card.s1 { top: -20px; right: -20px; }
-.stat-card.s2 { bottom: -24px; left: -20px; }
-.stat-emoji { font-size: 22px; }
-.stat-num { font-size: 20px; font-weight: 800; color: var(--green); line-height: 1; }
-.stat-label { font-size: 10px; color: var(--grey-400); font-weight: 600; margin-top: 2px; }
-.stats-bar { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 56px; background: var(--white); border: 1px solid var(--grey-300); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
-.stat-item { padding: 24px 20px; text-align: center; border-right: 1px solid var(--grey-200); }
-.stat-item:last-child { border-right: none; }
-.stat-item .big { font-size: 36px; font-weight: 900; color: var(--green); line-height: 1; letter-spacing: -1px; }
-.stat-item .lbl { font-size: 12px; color: var(--grey-600); font-weight: 600; margin-top: 6px; }
-.what-section { padding: 20px 0; background: var(--white); border-bottom: 1px solid var(--grey-200); }
-.section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 5px; }
-.section-label::before { content: ""; display: inline-block; width: 24px; height: 2px; background: var(--green); }
-.section-title { font-size: clamp(28px, 3vw, 42px); font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 20px; color: var(--navy); }
-.section-body { font-size: 16px; color: var(--grey-600); line-height: 1.8; }
-.what-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
-.what-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
-.highlight-card { background: var(--grey-100); border: 1px solid var(--grey-200); border-radius: var(--radius-lg); padding: 20px; transition: all 0.2s; }
-.highlight-card:hover { border-color: var(--green); background: var(--white); box-shadow: var(--shadow); }
-.highlight-card .icon { font-size: 28px; margin-bottom: 10px; }
-.highlight-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-.highlight-card p { font-size: 12px; color: var(--grey-400); line-height: 1.5; }
 
-.features-section { padding: 20px 0; background: var(--grey-100); border-bottom: 1px solid var(--grey-200); }
-.features-header { text-align: center; margin-bottom: 60px; }
-.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.feature-card { background: var(--white); border: 1px solid var(--grey-200); border-radius: var(--radius-xl); padding: 32px 26px; transition: all 0.25s; box-shadow: var(--shadow); }
-.feature-card:hover { border-color: var(--green); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.feature-icon-wrap { width: 60px; height: 60px; border-radius: 16px; background: var(--navy-light); border: 1px solid var(--grey-200); display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 20px; }
-.feature-card h3 { font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
-.feature-card p { font-size: 13.5px; color: var(--grey-600); line-height: 1.65; }
-.feature-tag { display: inline-block; margin-top: 16px; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; background: var(--navy-light); color: var(--navy); letter-spacing: 0.8px; text-transform: uppercase; }
-.pipeline-section { padding: 20px 0; background: var(--white); border-bottom: 1px solid var(--grey-200); }
-.pipeline-header { text-align: center; margin-bottom: 60px; }
-.pipeline-steps { display: grid; grid-template-columns: repeat(5, 1fr); align-items: start; }
-.pipeline-step { text-align: center; padding: 0 12px; position: relative; }
-.pipeline-step::after { content: '\2192'; position: absolute; right: -12px; top: 20px; font-size: 20px; color: var(--green); font-weight: 700; }
-.pipeline-step:last-child::after { display: none; }
-.step-num { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--green); background: var(--grey-100); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 26px; position: relative; }
-.step-counter { position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; background: var(--green); color: #fff; font-size: 10px; font-weight: 800; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-.pipeline-step h4 { font-size: 14px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
-.pipeline-step p { font-size: 12px; color: var(--grey-600); line-height: 1.5; }
-.benefits-section { padding: 20px 0; background: var(--grey-100); border-bottom: 1px solid var(--grey-200); }
-.benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.benefit-panel { background: var(--white); border: 1px solid var(--grey-200); border-radius: var(--radius-xl); padding: 36px 32px; box-shadow: var(--shadow); }
-.benefit-panel.for-sales { border-top: 4px solid var(--green); }
-.benefit-panel.for-biz { border-top: 4px solid var(--gold); }
-.benefit-panel-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
-.panel-icon-wrap { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; }
-.panel-icon-wrap.green { background: rgba(37, 211, 102, 0.15); color: var(--green); }
-.panel-icon-wrap.gold { background: var(--gold-bg); color: var(--gold); }
-.benefit-panel h3 { font-size: 18px; font-weight: 800; color: var(--navy); line-height: 1.2; }
-.benefit-panel h3 small { display: block; font-size: 11px; font-weight: 600; color: var(--grey-400); margin-top: 2px; text-transform: uppercase; letter-spacing: 1px; }
-.benefit-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-.benefit-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--grey-600); line-height: 1.5; }
-.benefit-list .check { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
-.check.green { background: rgba(37, 211, 102, 0.15); color: var(--green); }
-.check.gold { background: var(--gold-bg); color: var(--gold); }
-.cta-section { padding: 90px 0; background: linear-gradient(135deg, #ECFDF5 0%, #EFF6FF 100%); text-align: center; border-bottom: 1px solid var(--grey-200); }
-.cta-inner { max-width: 760px; margin: 0 auto; }
-.cta-inner h2 { font-size: clamp(30px, 4vw, 48px); font-weight: 900; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 20px; color: var(--navy); }
-.cta-inner p { font-size: 17px; color: var(--grey-600); line-height: 1.7; margin-bottom: 40px; }
-.cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-footer { background: var(--white); padding: 15px 0; border-top: 1px solid var(--grey-200); }
-footer .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-.footer-brand { display: flex; align-items: center; gap: 16px; }
-.footer-brand img { height: 32px; }
-.footer-copy { font-size: 12px; color: var(--grey-400); }
-.footer-tagline { font-size: 13px; color: var(--grey-600); font-style: italic; }
-.footer-tagline span { color: var(--green); font-style: normal; font-weight: 700; }
-.footer-tagline a { color: inherit; text-decoration: none; transition: color 0.2s; }
-.footer-tagline a:hover { color: var(--green); text-decoration: underline; }
+/* Floating Home Icon Button */
+.floating-home {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 200;
+  background: var(--white);
+  color: var(--navy);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--grey-200);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+.floating-home:hover {
+  background: var(--green);
+  color: var(--white);
+  border-color: var(--green);
+  transform: translateY(-2px) scale(1.05);
+}
+.floating-home svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+}
+
+/* Grid Layout for Steps and Intro */
+.workflow-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+
+/* Intro Card Style */
+.intro-card {
+  background: linear-gradient(135deg, var(--navy) 0%, #1A365D 100%);
+  color: var(--white);
+  border: 1px solid var(--navy-mid);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-lg);
+  gap: 20px;
+}
+.intro-card .logo-wrap { display: flex; justify-content: flex-start; align-items: center; }
+.intro-card .logo-wrap img { height: 75px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1)); }
+.intro-card .hero-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 16px; border-radius: 50px; font-size: 11px; font-weight: 700; color: var(--white); letter-spacing: 1px; text-transform: uppercase; align-self: flex-start; }
+.intro-card .hero-pill .dot { width: 8px; height: 8px; background: var(--green-light); border-radius: 50%; }
+.intro-card h1 { font-size: clamp(28px, 3.5vw, 38px); font-weight: 900; line-height: 1.2; color: var(--white); letter-spacing: -1px; }
+.intro-card h1 .line2 { color: var(--green-light); display: block; }
+.intro-card .hero-sub { font-size: 14.5px; color: var(--grey-300); line-height: 1.7; }
+.btn-back-link { display: inline-flex; align-items: center; gap: 8px; background: var(--green); color: var(--white); padding: 12px 24px; border-radius: 50px; font-weight: 700; font-size: 13.5px; text-decoration: none; align-self: flex-start; transition: all 0.2s; box-shadow: 0 4px 12px rgba(18, 140, 126, 0.2); border: none; cursor: pointer; margin-top: auto; }
+.btn-back-link:hover { background: #0e6f64; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(18, 140, 126, 0.35); }
+
+/* Step Card Styles - Side-by-Side Flex Layout */
+.step-card {
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.step-card:hover {
+  border-color: var(--green);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Step Info: Compact and Clean */
+.step-info {
+  flex: 0 0 38%;
+  display: flex;
+  flex-direction: column;
+}
+.step-badge { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.step-badge .num { background: var(--navy); color: var(--white); font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 50px; }
+.step-badge .num-dash { background: var(--gold-bg); color: var(--gold); font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 50px; }
+.step-badge .tag { font-size: 10px; font-weight: 700; color: var(--grey-400); letter-spacing: 0.5px; text-transform: uppercase; }
+.step-info h3 { font-size: 18px; font-weight: 800; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.step-desc { font-size: 13px; color: var(--grey-600); line-height: 1.5; margin-bottom: 0; }
+
+/* Compact bullet items list to balance whitespace next to screenshots */
+.step-features-compact {
+  list-style: none;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid var(--grey-200);
+  padding-top: 14px;
+}
+.step-features-compact li {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--grey-600);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.step-features-compact li svg {
+  width: 14px;
+  height: 14px;
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+/* Mockup Images: Occupies 62% width, no body padding for maximum image visibility */
+.step-mockup {
+  flex: 0 0 62%;
+  position: relative;
+  cursor: pointer;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--grey-300);
+  background: #fff;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.step-mockup:hover { box-shadow: var(--shadow-lg); }
+
+.mockup-header { display: flex; align-items: center; justify-content: space-between; background: #e2e8f0; padding: 6px 12px; border-bottom: 1px solid var(--grey-300); }
+.mockup-controls { display: flex; gap: 4px; }
+.mockup-controls span { width: 7px; height: 7px; border-radius: 50%; }
+.mockup-controls span:nth-child(1) { background: #FF5F57; }
+.mockup-controls span:nth-child(2) { background: #FEBC2E; }
+.mockup-controls span:nth-child(3) { background: #28C840; }
+.mockup-addr { font-size: 9px; font-weight: 600; color: var(--grey-400); letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+
+.mockup-body { position: relative; width: 100%; display: flex; align-items: center; justify-content: center; background: #fff; padding: 0; overflow: hidden; }
+.mockup-img { width: 100%; height: auto; max-height: 420px; object-fit: contain; display: block; transition: filter 0.3s; }
+.step-mockup:hover .mockup-img { filter: brightness(0.95); }
+
+/* Zoom Indicator Overlay */
+.zoom-overlay { position: absolute; inset: 0; background: rgba(11, 29, 58, 0.4); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px; opacity: 0; transition: opacity 0.25s ease; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; }
+.step-mockup:hover .zoom-overlay { opacity: 1; }
+.zoom-icon { background: rgba(255, 255, 255, 0.2); border-radius: 50%; padding: 8px; backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.4); }
+.zoom-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+
+/* Lightbox Modal */
+.lightbox { position: fixed; inset: 0; background: rgba(11, 29, 58, 0.85); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 40px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.lightbox.open { opacity: 1; pointer-events: auto; }
+.lightbox-container { position: relative; max-width: 90%; max-height: 85vh; display: flex; flex-direction: column; align-items: center; animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes zoomIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.lightbox-img { max-width: 100%; max-height: 75vh; object-fit: contain; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); }
+.lightbox-caption { color: var(--white); margin-top: 18px; font-size: 15px; font-weight: 700; text-align: center; font-family: var(--font-main); letter-spacing: 0.5px; background: rgba(11, 29, 58, 0.6); padding: 8px 20px; border-radius: 50px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+.lightbox-close { position: absolute; top: -50px; right: 0; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.25); color: var(--white); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 20px; outline: none; }
+.lightbox-close:hover { background: var(--green); border-color: var(--green); transform: rotate(90deg); }
 
 /* Responsive Styles */
-@media (max-width: 1180px) {
-  .container {
-    padding: 0 20px;
+@media (max-width: 1200px) {
+  .step-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 24px;
+    gap: 16px;
+  }
+  .step-info {
+    flex: 1 1 auto;
+  }
+  .step-mockup {
+    flex: 1 1 auto;
+  }
+  .mockup-img {
+    max-height: 320px;
   }
 }
 
-@media (max-width: 991px) {
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .hero-visual {
-    max-width: 540px;
-    margin: 0 auto;
-    width: 100%;
-  }
-  .hero-sub {
-    max-width: 100%;
-  }
-  .what-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-  .pipeline-steps {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  .pipeline-step {
-    padding: 0;
-  }
-  .pipeline-step::after {
-    content: '\2193';
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    top: auto;
-    bottom: -28px;
-  }
-  .benefits-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-}
-
-@media (max-width: 767px) {
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-  .cta-section {
-    padding: 60px 0;
-  }
-  footer .container {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-  }
-  .footer-brand {
-    flex-direction: column;
-    gap: 12px;
-  }
-  .footer-brand .header-divider {
-    display: none;
-  }
+@media (max-width: 992px) {
+  .workflow-grid { grid-template-columns: 1fr; }
+  .floating-home { top: 16px; left: 16px; width: 40px; height: 40px; }
+  .intro-card { padding: 28px; }
 }
 
 @media (max-width: 576px) {
-  .stat-card.s1 {
-    right: 0;
-    top: -10px;
-  }
-  .stat-card.s2 {
-    left: 0;
-    bottom: -15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-logo img {
-    height: 48px;
-  }
-  .header-logo {
-    gap: 10px;
-  }
-  .header-divider {
-    height: 20px;
-  }
-  .header-tagline {
-    font-size: 10px;
-    letter-spacing: 1px;
-  }
-  .hero-pill {
-    font-size: 11px;
-    padding: 4px 12px;
-  }
-  .hero h1 {
-    font-size: 32px;
-  }
-  .hero-mockup {
-    padding: 16px;
-    border-radius: var(--radius-lg);
-  }
-  .mockup-row {
-    padding: 10px;
-    gap: 10px;
-  }
-  .mockup-icon {
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
-  }
-  .mockup-broadcast {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-    text-align: left;
-  }
-  .broadcast-btn {
-    text-align: center;
-    width: 100%;
-  }
-  .what-highlights {
-    grid-template-columns: 1fr;
-  }
-  .highlight-card {
-    padding: 16px;
-  }
-  .benefit-panel {
-    padding: 24px 20px;
-  }
+  body { padding: 15px 0 60px; }
+  .intro-card h1 { font-size: 26px; }
+  .intro-card .hero-sub { font-size: 13.5px; }
+  .lightbox { padding: 15px; }
+  .lightbox-caption { font-size: 12px; }
+  .lightbox-close { top: auto; bottom: -60px; right: 50%; transform: translateX(50%); }
+  .lightbox-close:hover { transform: translateX(50%) rotate(90deg); }
+  .mockup-img { max-height: 280px; }
 }
 </style>
 </head>
 <body>
 
-<header><div class="container">
-<div class="header-logo">
-<img src="target-pin.png" alt="TargetPing Logo"/>
-<div class="header-divider"></div>
-<span class="header-tagline">Smart Sales Outreach</span>
-</div>
-</div></header>
-<section class="hero">
+
+
 <div class="container">
-<div class="hero-inner">
-<div class="hero-left">
-<div class="hero-pill"><span class="dot"></span>For Sales &amp; Marketing Teams</div>
-<h1>Reach the Right Customers.<span class="line2">Start Better Conversations.</span></h1>
-<p class="hero-sub">TargetPing is your intelligent customer outreach cockpit &mdash; filter your contacts by sector, country, or commodity and fire off a rich WhatsApp broadcast in a single click. Transform your static customer list into a live, data-driven sales pipeline.</p>
-<div class="hero-ctas">
-</div></div>
-<div class="hero-visual">
-<div class="hero-mockup">
-<div class="mockup-topbar"><div class="mockup-dots"><span></span><span></span><span></span></div><span class="mockup-title">TARGETPING &mdash; CUSTOMER LIST</span></div>
-<div class="mockup-row active"><div class="mockup-icon green">&#127981;</div><div class="mockup-info"><div class="mockup-name">Meridian Freight, India</div><div class="mockup-meta">Steel Coils &middot; Mumbai &middot; +91 98200 XXXXX</div></div><span class="mockup-tag tag-green">Steel</span></div>
-<div class="mockup-row"><div class="mockup-icon blue">&#128674;</div><div class="mockup-info"><div class="mockup-name">Gulf Trade Logistics, UAE</div><div class="mockup-meta">Perishables &middot; Dubai &middot; +971 50 XXX XXXX</div></div><span class="mockup-tag tag-blue">Perishables</span></div>
-<div class="mockup-row"><div class="mockup-icon gold">&#128230;</div><div class="mockup-info"><div class="mockup-name">Apex Exports, Bangladesh</div><div class="mockup-meta">Garments &middot; Chittagong &middot; +880 1XX XXX XXXX</div></div><span class="mockup-tag tag-gold">Garments</span></div>
-<div class="mockup-broadcast"><span class="broadcast-icon">&#128225;</span><div class="broadcast-text"><strong>3 contacts selected &mdash; India &middot; Steel</strong><span>Rate sheet + Vessel schedule ready to send</span></div><span class="broadcast-btn">Send Now</span></div>
-</div></div></div>
-</div></section>
-<section class="what-section"><div class="container"><div class="what-inner">
-<div>
-<div class="section-label">About the Platform</div>
-<h2 class="section-title">Your Sales Pipeline,<br/><span class="text-green">Now Powered by WhatsApp</span></h2>
-<p class="section-body">In today’s fast-paced logistics and trade industries, maintaining strong, personalized relationships with freight forwarders, importers, exporters, and agents is the key to closing deals. Yet, most businesses struggle with static spreadsheets and fragmented communication.<br/><br/><strong>TargetPing </strong>changes that. It is a purpose-built customer list manager with integrated WhatsApp Business broadcasting, designed to supercharge marketing and sales for shipping companies, NVOCCs, and logistics providers. Start by uploading your contact list via Excel in seconds, with every customer structured and tagged by country, sector, and commodity.<br/><br/>The real power lies in precision: filter your database by any attribute, then instantly broadcast rich media campaigns with interactive callback buttons. By logging every delivery and response, TargetPing serves as a lightweight communication cockpit that transforms a static customer directory into a live, high-converting sales pipeline &mdash; all powered by the world’s most popular messaging channel.</p>
+  
+  <!-- 2-Column Grid Layout containing Intro Card and all 5 Steps -->
+  <div class="workflow-grid">
+    
+    <!-- SLOT 1: INTRO CARD -->
+    <header class="intro-card">
+      <div class="logo-wrap">
+        <img src="target-pin.png" alt="TargetPing Logo"/>
+      </div>
+      <div class="hero-pill"><span class="dot"></span>For Sales &amp; Marketing Teams</div>
+      <h1>Reach the Right Customers.<span class="line2">Start Better Conversations.</span></h1>
+      <p class="hero-sub">TargetPing is your intelligent customer outreach cockpit — filter your contacts by sector, country, or commodity and fire off a rich WhatsApp broadcast in a single click. Transform your static customer list into a live, data-driven sales pipeline.</p>
+     
+    </header>
+    
+    <!-- SLOT 2: STEP 1 -->
+    <article class="step-card">
+      <div class="step-info">
+        <div class="step-badge">
+          <span class="num">Step 1</span>
+          <span class="tag">Database</span>
+        </div>
+        <h3>Filter Customers</h3>
+        <p class="step-desc">Upload contacts via Excel and filter by sector, country, or commodity in a single click to segment your trade targets.</p>
+        
+        <!-- Short Screen Specialties List -->
+        <ul class="step-features-compact">
+        
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Instant Filtering</span>
+          </li>
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Build Broadcast Groups in Seconds</span>
+          </li>
+        </ul>
+      </div>
+      <div class="step-mockup" onclick="openLightbox('customer_list.png', 'Step 1: Customer List & Filtration View')">
+        <div class="mockup-header">
+          <div class="mockup-controls"><span></span><span></span><span></span></div>
+          <div class="mockup-addr">targetping.com/customers</div>
+        </div>
+        <div class="mockup-body">
+          <img src="customer_list.png" alt="Customer List Screen" class="mockup-img"/>
+          <div class="zoom-overlay">
+            <div class="zoom-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span>Click to expand screen</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLOT 3: STEP 2 -->
+    <article class="step-card">
+      <div class="step-info">
+        <div class="step-badge">
+          <span class="num">Step 2</span>
+          <span class="tag">Campaigns</span>
+        </div>
+        <h3>Craft Broadcasts</h3>
+        <p class="step-desc">Compose WhatsApp campaigns or status updates with rates sheets, schedules, and custom interactive CTA buttons.</p>
+        
+        <!-- Short Screen Specialties List -->
+        <ul class="step-features-compact">
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Smart Message Templates</span>
+          </li>
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Status Poster Design Generator</span>
+          </li>
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Interactive Lead Callback CTA</span>
+          </li>
+        </ul>
+      </div>
+      <div class="step-mockup" onclick="openLightbox('create_brodcast.png', 'Step 2: Create Broadcast / Status Screen')">
+        <div class="mockup-header">
+          <div class="mockup-controls"><span></span><span></span><span></span></div>
+          <div class="mockup-addr">targetping.com/broadcasts/new</div>
+        </div>
+        <div class="mockup-body">
+          <img src="create_brodcast.png" alt="Create Broadcast Screen" class="mockup-img"/>
+          <div class="zoom-overlay">
+            <div class="zoom-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span>Click to expand screen</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLOT 4: STEP 3 -->
+    <article class="step-card">
+      <div class="step-info">
+        <div class="step-badge">
+          <span class="num">Step 3</span>
+          <span class="tag">Chat Preview</span>
+        </div>
+        <h3>WhatsApp Output</h3>
+        <p class="step-desc">How customers see the message: a verified business profile with rich media preview and action buttons.</p>
+        
+        <!-- Short Screen Specialties List -->
+        <ul class="step-features-compact">
+     
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>One-Tap Call-to-Action Clicks</span>
+          </li>
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Eye-Catching Status</span>
+          </li>
+        </ul>
+      </div>
+      <div class="step-mockup" onclick="openLightbox('Out Put.png', 'Step 3: WhatsApp Customer Output Screen')">
+        <div class="mockup-header">
+          <div class="mockup-controls"><span></span><span></span><span></span></div>
+          <div class="mockup-addr">WhatsApp App Mockup</div>
+        </div>
+        <div class="mockup-body">
+          <img src="Out Put.png" alt="WhatsApp Output" class="mockup-img"/>
+          <div class="zoom-overlay">
+            <div class="zoom-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span>Click to expand screen</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLOT 5: STEP 4 -->
+    <article class="step-card">
+      <div class="step-info">
+        <div class="step-badge">
+          <span class="num">Step 4</span>
+          <span class="tag">Leads</span>
+        </div>
+        <h3>Capture Leads</h3>
+        <p class="step-desc">When a customer taps 'Get Callback' or 'Request Rate', their response is logged instantly as a warm lead.</p>
+        
+        <!-- Short Screen Specialties List -->
+        <ul class="step-features-compact">
+         
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Customer Response History</span>
+          </li>
+          <li>
+            <svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Lead Routing to Sales Agents</span>
+          </li>
+        </ul>
+      </div>
+      <div class="step-mockup" onclick="openLightbox('Response_back.png', 'Step 4: Customer Callback Action Screen')">
+        <div class="mockup-header">
+          <div class="mockup-controls"><span></span><span></span><span></span></div>
+          <div class="mockup-addr">targetping.com/leads/responses</div>
+        </div>
+        <div class="mockup-body">
+          <img src="Response_back.png" alt="Response Back Screen" class="mockup-img"/>
+          <div class="zoom-overlay">
+            <div class="zoom-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span>Click to expand screen</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SLOT 6: STEP 5 -->
+    <article class="step-card">
+      <div class="step-info">
+        <div class="step-badge">
+          <span class="num-dash">Cockpit</span>
+          <span class="tag">Analytics</span>
+        </div>
+        <h3>Analytics Dashboard</h3>
+        <p class="step-desc">Track delivery status, read rates, click metrics, and campaign conversion logs in a central management cockpit.</p>
+        
+        <!-- Short Screen Specialties List -->
+        <ul class="step-features-compact">
+          
+     
+       
+        </ul>
+      </div>
+      <div class="step-mockup" onclick="openLightbox('dash.png', 'Analytics & Operations Dashboard')">
+        <div class="mockup-header">
+          <div class="mockup-controls"><span></span><span></span><span></span></div>
+          <div class="mockup-addr">targetping.com/dashboard</div>
+        </div>
+        <div class="mockup-body">
+          <img src="dash.png" alt="Analytics Dashboard Screen" class="mockup-img"/>
+          <div class="zoom-overlay">
+            <div class="zoom-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span>Click to expand screen</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
 </div>
-<div class="">
-<div class="what-highlights">
-<div class="highlight-card"><div class="icon">&#128193;</div><h4>Smart Database</h4><p>Structured customer records with full commodity &amp; sector tagging</p></div>
-<div class="highlight-card"><div class="icon">&#128228;</div><h4>Excel Import</h4><p>Upload your existing contact list in one step &mdash; no manual entry</p></div>
-<div class="highlight-card"><div class="icon">&#127919;</div><h4>Precision Filter</h4><p>Segment by country, state, sector, or commodity instantly</p></div>
-<div class="highlight-card"><div class="icon">&#128202;</div><h4>Response Analytics</h4><p>Track every broadcast delivery, opens &amp; callback clicks</p></div>
-</div></div>
 
+<!-- Lightbox Modal Markup -->
+<div id="lightboxModal" class="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-container" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img id="lightboxImage" class="lightbox-img" src="" alt="Expanded View"/>
+    <div id="lightboxCaption" class="lightbox-caption">Expanded View</div>
+  </div>
+</div>
 
-
-
-
-
-</div></div></section>
-<section class="features-section" id="features"><div class="container">
-<div class="features-header"><div class="section-label" style="justify-content:center">Core Features</div><h2 class="section-title">Everything a Sales Team Needs,<br/><span class="text-green">Nothing They Don&rsquo;t</span></h2></div>
-<div class="features-grid">
-<div class="feature-card"><div class="feature-icon-wrap">&#128193;</div><h3>Structured Customer List</h3><p>Add customers with mandatory country, optional state, sector, contact details, and a short commodity description. Filter by any field instantly &mdash; sector, region, or trade lane.</p><span class="feature-tag">Database</span></div>
-<div class="feature-card"><div class="feature-icon-wrap">&#128225;</div><h3>WhatsApp Broadcast via Business API</h3><p>Select filtered customers and send one-to-many broadcast messages using the WhatsApp Business API &mdash; ensuring high deliverability, compliance, and verified sender status.</p><span class="feature-tag">Broadcasting</span></div>
-<div class="feature-card"><div class="feature-icon-wrap">&#127916;</div><h3>Rich Media Attachments</h3><p>Enhance broadcasts with images, videos, GIFs, and file attachments &mdash; rate sheets, sailing schedules, service flyers. Full multimedia campaigns at your fingertips.</p><span class="feature-tag">Media</span></div>
-<div class="feature-card"><div class="feature-icon-wrap">&#9742;&#65039;</div><h3>Interactive Callback Button</h3><p>Add action buttons like &ldquo;I&rsquo;m Interested &mdash; Get a Callback.&rdquo; When a recipient taps it, your sales team is instantly notified &mdash; creating a warm lead without any manual follow-up.</p><span class="feature-tag">Lead Capture</span></div>
-<div class="feature-card"><div class="feature-icon-wrap">&#128202;</div><h3>Broadcast History &amp; Response Tracking</h3><p>Every broadcast saves its full delivery and response log. See who opened, who clicked, and which messages generated engagement &mdash; enabling data-driven follow-ups.</p><span class="feature-tag">Analytics</span></div>
-<div class="feature-card"><div class="feature-icon-wrap">&#10024;</div><h3>WhatsApp Status Generator</h3><p>Convert promotions or updates &mdash; vessel schedule changes, new service announcements &mdash; into beautiful WhatsApp Status posts. Expand reach beyond direct broadcasts effortlessly.</p><span class="feature-tag">Status Marketing</span></div>
-</div></div></section>
-<section class="pipeline-section"><div class="container">
-<div class="pipeline-header"><div class="section-label" style="justify-content:center">Workflow</div><h2 class="section-title" style="text-align:center">From Contact to Closed Deal<br/><span class="text-green">in 5 Simple Steps</span></h2></div>
-<div class="pipeline-steps">
-<div class="pipeline-step"><div class="step-num">&#128193;<span class="step-counter">1</span></div><h4>Build Your List</h4><p>Add customers or upload Excel &mdash; name, country, sector, commodity</p></div>
-<div class="pipeline-step"><div class="step-num">&#127919;<span class="step-counter">2</span></div><h4>Smart Filter</h4><p>Segment by cargo, country, or sector in one click</p></div>
-<div class="pipeline-step"><div class="step-num">&#128228;<span class="step-counter">3</span></div><h4>Craft &amp; Send</h4><p>Attach media, add callback button, broadcast via WhatsApp API</p></div>
-<div class="pipeline-step"><div class="step-num">&#128202;<span class="step-counter">4</span></div><h4>Track Responses</h4><p>Monitor opens, clicks &amp; callback requests in real-time</p></div>
-<div class="pipeline-step"><div class="step-num">&#127942;<span class="step-counter">5</span></div><h4>Close Deals</h4><p>Follow up on warm leads &mdash; faster, smarter, data-driven</p></div>
-</div></div></section>
-<section class="benefits-section" id="benefits"><div class="container">
-<div class="features-header"><div class="section-label" style="justify-content:center">Who Benefits</div><h2 class="section-title" style="text-align:center">Built for Teams.<br/><span class="text-green">Results for the Whole Organization.</span></h2></div>
-<div class="benefits-grid">
-<div class="benefit-panel for-sales">
-<div class="benefit-panel-header"><div class="panel-icon-wrap green">&#127919;</div><div><h3>Sales &amp; Marketing Teams<small>Individual Users</small></h3></div></div>
-<ul class="benefit-list">
-<li><span class="check green">&#10003;</span><span><strong>Targeted Outreach in Seconds</strong> &mdash; Filter instantly by specific criteria (e.g., "steel shippers in India") and reach the exact right audience without wasting time.</span></li>
-<li><span class="check green">&#10003;</span><span><strong>High-Impact Communication</strong> &mdash; Send rate offers, container availability, or service updates as eye-catching media rather than easily ignored text.</span></li>
-<li><span class="check green">&#10003;</span><span><strong>Instant Lead Capture</strong> &mdash; The interactive callback button ensures hot leads are captured the exact moment a customer shows interest.</span></li>
-<li><span class="check green">&#10003;</span><span><strong>Seamless Relationship Management</strong> &mdash; No more lost follow-ups. Every customer’s response history is neatly logged, keeping the entire sales team aligned.</span></li>
-<li><span class="check green">&#10003;</span><span><strong>Zero Manual List Management</strong> &mdash; Forget manually managing messy broadcast groups on your phone; your central database is always synced and broadcast-ready.</span></li>
-</ul></div>
-<div class="benefit-panel for-biz">
-<div class="benefit-panel-header"><div class="panel-icon-wrap gold">&#127970;</div><div><h3>Business Organization<small>NVOCC / Shipping Companies</small></h3></div></div>
-<ul class="benefit-list">
-<li><span class="check gold">&#10003;</span><span><strong>Accelerated Sales Cycles</strong> &mdash; Reduce lead response times by connecting with customers while their interest is at its peak.</span></li>
-<li><span class="check gold">&#10003;</span><span><strong>Operational Transparency</strong> &mdash; Management gains a bird's-eye view of broadcast performance, market reach, and response metrics across different global territories.</span></li>
-<li><span class="check gold">&#10003;</span><span><strong>Commodity-Wise Segmentation</strong> &mdash; Maximize conversions by pushing specific offers to precise trade lanes (e.g., project cargo, perishables, or bulk).</span></li>
-<li><span class="check gold">&#10003;</span><span><strong>Stronger Partner Alignment</strong> &mdash; Keep overseas agents loyal, informed, and synchronized with timely, beautifully formatted service updates.</span></li>
-<li><span class="check gold">&#10003;</span><span><strong>Cost-Effective Marketing</strong> &mdash; Consolidate your tech stack. Replace expensive, fragmented SMS and email marketing tools with a single, highly efficient WhatsApp platform.</span></li>
-</ul></div></div></div></section>
-
-<footer><div class="container">
-<div class="footer-brand"><img src="LOGO 4.png" alt="inTEUtion Logo"/><div class="header-divider"></div><img src="target-pin.png" alt="TargetPing" style="height:60px"/></div>
-
-<p class="footer-tagline"> <a href="tel:8592859274">8592859274</a> / <a href="mailto:inteution@inteution.com">inteution@inteution.com</a></p>
-</div></footer>
 <script>
-document.querySelectorAll("a[href^=\"#\"]").forEach(a=>{a.addEventListener("click",e=>{const id=a.getAttribute("href");if(id.length>1){e.preventDefault();document.querySelector(id)?.scrollIntoView({behavior:"smooth",block:"start"});}});});
+// Lightbox Modal Logic
+const modal = document.getElementById('lightboxModal');
+const modalImg = document.getElementById('lightboxImage');
+const modalCaption = document.getElementById('lightboxCaption');
+
+function openLightbox(imgSrc, captionText) {
+  modal.classList.add('open');
+  modalImg.src = imgSrc;
+  modalCaption.textContent = captionText;
+  document.body.style.overflow = 'hidden'; // Lock background scroll
+}
+
+function closeLightbox() {
+  modal.classList.remove('open');
+  document.body.style.overflow = ''; // Unlock background scroll
+}
+
+// Close lightbox on Escape key press
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeLightbox();
+  }
+});
 </script>
 </body>
 </html>
